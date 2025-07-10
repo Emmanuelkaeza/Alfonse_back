@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  alpha-back:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_PATH=/app/data/database.sqlite
+      - JWT_SECRET=${JWT_SECRET:-changez-ce-secret-jwt-en-production}
+      - CINETPAY_API_KEY=${CINETPAY_API_KEY}
+      - CINETPAY_SITE_ID=${CINETPAY_SITE_ID}
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:3000}
+    volumes:
+      - alpha_data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  alpha_data:
+    driver: local

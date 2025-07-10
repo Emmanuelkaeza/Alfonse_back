@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Payment, PaymentStatus, PaymentMethod, PaymentType } from './entities/payment.entity';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { PatientsService } from '../patients/patients.service';
+import { CinetPayService } from './services/cinetpay.service';
 import { ConfigService } from '@nestjs/config';
 import { v4 as uuidv4 } from 'uuid';
 
